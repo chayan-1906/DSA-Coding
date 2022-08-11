@@ -30,8 +30,7 @@ public class SinglyLinkedList {
     }
 
     // choice 2
-    public static void displayLinkedList() {
-        ListNode currentNode = head;
+    public static void displayLinkedList(ListNode currentNode) {
         while (currentNode != null) {
             System.out.print ( currentNode.data + " --> " );
             currentNode = currentNode.next;
@@ -156,10 +155,55 @@ public class SinglyLinkedList {
         }
     }
 
+    // choice 10
+    public static int searchNode(int value) {
+        ListNode current = head;
+        int keyPos = 1;
+        while (current != null) {
+            if (current.data == value) return keyPos;
+            current = current.next;
+            keyPos++;
+        }
+        return -1;
+    }
+
+    // choice 11
+    public static ListNode reverseList(ListNode head) {
+        if (head == null) return head;
+        ListNode current = head;
+        ListNode previous = null;
+        ListNode next;
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
+    }
+
+    // choice 12
+    public static ListNode middleNode() {
+        // Using length() function
+        if (head == null) return head;
+        /*ListNode current = head;
+        for (int i = 0; i < length ( ) / 2; i++)
+            current = current.next;
+        return current;*/
+        // Using slow & fast pointer
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+        }
+        return slowPtr;
+    }
+
     public static void main(String[] args) {
 //        SinglyLinkedList singlyLinkedList = new SinglyLinkedList ( );
         Scanner scanner = new Scanner ( System.in );
-        int length, nodeData, pos;
+        int length, nodeData, pos, key;
         int choice;
         do {
             System.out.print ( "Enter your choice: " );
@@ -173,7 +217,7 @@ public class SinglyLinkedList {
                     createSinglyLinkedList ( nodeData );
                 }
             } else if (choice == 2) {
-                displayLinkedList ( );
+                displayLinkedList ( head );
             } else if (choice == 3) {
                 System.out.println ( "Length: " + length ( ) );
             } else if (choice == 4) {
@@ -208,6 +252,20 @@ public class SinglyLinkedList {
                     choice = scanner.nextInt ( );
                 }
                 System.out.println ( "Data from " + deleteNodeAtPosition ( pos ) + " deleted successfully" );
+            } else if (choice == 10) {
+                System.out.print ( "Enter data to be searched: " );
+                key = scanner.nextInt ( );
+                int keyPos = searchNode ( key );
+                if (keyPos == -1) {
+                    System.out.println ( key + " not available in linked list" );
+                } else {
+                    System.out.println ( key + " found at " + keyPos );
+                }
+            } else if (choice == 11) {
+                ListNode reversedList = reverseList ( head );
+                displayLinkedList ( reversedList );
+            } else if (choice == 12) {
+                System.out.println ( "Middle node of list: " + middleNode ( ).data );
             }
         } while (choice != 100);
     }
