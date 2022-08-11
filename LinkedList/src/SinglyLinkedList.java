@@ -200,6 +200,28 @@ public class SinglyLinkedList {
         return slowPtr;
     }
 
+    // choice 13
+    public static int nthNodeFromLast(int n) {
+        if (head == null || n > length ( ) || n <= 0) return -1;
+        ListNode current = head;
+        for (int i = 0; i < length ( ) - n; i++)
+            current = current.next;
+        return current.data;
+    }
+
+    // choice 14
+    public static void removeDuplicatesFromSortedLinkedList() {
+        if (head == null) return;
+        ListNode current = head;
+        while (current.next != null) {
+            if (current.data == current.next.data) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 //        SinglyLinkedList singlyLinkedList = new SinglyLinkedList ( );
         Scanner scanner = new Scanner ( System.in );
@@ -266,6 +288,12 @@ public class SinglyLinkedList {
                 displayLinkedList ( reversedList );
             } else if (choice == 12) {
                 System.out.println ( "Middle node of list: " + middleNode ( ).data );
+            } else if (choice == 13) {
+                System.out.print ( "Enter value of n from last: " );
+                int n = scanner.nextInt ( );
+                System.out.println ( "nth node from last: " + nthNodeFromLast ( n ) );
+            } else if (choice == 14) {
+                removeDuplicatesFromSortedLinkedList ( );
             }
         } while (choice != 100);
     }
