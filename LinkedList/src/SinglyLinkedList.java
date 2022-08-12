@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -211,16 +209,13 @@ public class SinglyLinkedList {
         return current.data;
     }
 
-    // choice 14
-    public static void removeDuplicatesFromSortedLinkedList() {
+    // choice 14  83. https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+    public static void removeDuplicateFromSortedLinkedList() {
         if (head == null) return;
         ListNode current = head;
         while (current.next != null) {
-            if (current.data == current.next.data) {
-                current.next = current.next.next;
-            } else {
-                current = current.next;
-            }
+            if (current.data == current.next.data) current.next = current.next.next;
+            else current = current.next;
         }
     }
 
@@ -234,8 +229,7 @@ public class SinglyLinkedList {
             head = newnode;
         } else {
             // locate node before point of insertion i.e. once when newnode is going to be larger than current node.next node
-            while (currentNode.next != null && currentNode.next.data < newnode.data)
-                currentNode = currentNode.next;
+            while (currentNode.next != null && currentNode.next.data < newnode.data) currentNode = currentNode.next;
             newnode.next = currentNode.next;
             currentNode.next = newnode;
         }
@@ -271,7 +265,6 @@ public class SinglyLinkedList {
         return -1;
     }
 
-    // choice 18
     public static void createLoopLinkedList() {
         ListNode firstNode = new ListNode ( 1 );
         ListNode secondNode = new ListNode ( 2 );
@@ -288,6 +281,32 @@ public class SinglyLinkedList {
         fifthNode.next = sixthNode;
 //        sixthNode.next = thirdNode;
         sixthNode.next = null;
+    }
+
+    // choice 18  2095. https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
+    public static void deleteMiddleNode() {
+        if (head == null) return;
+        ListNode currentNode = head;
+        ListNode previousNode = head;
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        for (int i = 0; i < length ( ) / 2; i++) {
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+        previousNode.next = currentNode.next;
+    }
+
+    // 82. https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+    public static void removeDuplicateNodesFromSortedLinkedList() {
+        // solved in leetcode editor, couldn't understand
+    }
+
+    // 148. https://leetcode.com/problems/sort-list/
+    public static void sortList() {
+
     }
 
     public static void main(String[] args) {
@@ -360,7 +379,7 @@ public class SinglyLinkedList {
                 int n = scanner.nextInt ( );
                 System.out.println ( "nth node from last: " + nthNodeFromLast ( n ) );
             } else if (choice == 14) {
-                removeDuplicatesFromSortedLinkedList ( );
+                removeDuplicateFromSortedLinkedList ( );
             } else if (choice == 15) {
                 System.out.print ( "Enter data to be added in sorted linked list: " );
                 nodeData = scanner.nextInt ( );
@@ -372,6 +391,10 @@ public class SinglyLinkedList {
             } else if (choice == 17) {
                 createLoopLinkedList ( );
                 System.out.println ( (detectLoop ( )) );
+            } else if (choice == 18) {
+                deleteMiddleNode ( );
+            } else if (choice == 19) {
+                sortList ( );
             }
         } while (choice != 100);
     }
