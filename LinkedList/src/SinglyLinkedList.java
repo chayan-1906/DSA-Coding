@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -222,8 +224,73 @@ public class SinglyLinkedList {
         }
     }
 
+    // choice 15
+    public static void insertNodeSortedLinkedList(int value) {
+        ListNode currentNode = head;
+        ListNode newnode = new ListNode ( value );
+        if (head == null || head.data >= newnode.data) {
+            // insert beginning
+            newnode.next = head;
+            head = newnode;
+        } else {
+            // locate node before point of insertion i.e. once when newnode is going to be larger than current node.next node
+            while (currentNode.next != null && currentNode.next.data < newnode.data)
+                currentNode = currentNode.next;
+            newnode.next = currentNode.next;
+            currentNode.next = newnode;
+        }
+    }
+
+    // choice 16
+    public static void deleteGivenKey(int key) {
+        if (head == null) return;
+        ListNode currentNodeToBeDeleted = head;
+        ListNode previousNode = head;
+        if (head.data == key) {
+            // if key is the first node
+            head = head.next;
+            return;
+        }
+        while (currentNodeToBeDeleted.data != key && currentNodeToBeDeleted.next != null) {
+            previousNode = currentNodeToBeDeleted;
+            currentNodeToBeDeleted = currentNodeToBeDeleted.next;
+        }
+        previousNode.next = currentNodeToBeDeleted.next;
+
+    }
+
+    // choice 17
+    public static Integer detectLoop() {
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr) return slowPtr.data;
+        }
+        return -1;
+    }
+
+    // choice 18
+    public static void createLoopLinkedList() {
+        ListNode firstNode = new ListNode ( 1 );
+        ListNode secondNode = new ListNode ( 2 );
+        ListNode thirdNode = new ListNode ( 3 );
+        ListNode fourthNode = new ListNode ( 4 );
+        ListNode fifthNode = new ListNode ( 5 );
+        ListNode sixthNode = new ListNode ( 6 );
+
+        head = firstNode;
+        firstNode.next = secondNode;
+        secondNode.next = thirdNode;
+        thirdNode.next = fourthNode;
+        fourthNode.next = fifthNode;
+        fifthNode.next = sixthNode;
+//        sixthNode.next = thirdNode;
+        sixthNode.next = null;
+    }
+
     public static void main(String[] args) {
-//        SinglyLinkedList singlyLinkedList = new SinglyLinkedList ( );
         Scanner scanner = new Scanner ( System.in );
         int length, nodeData, pos, key;
         int choice;
@@ -294,6 +361,17 @@ public class SinglyLinkedList {
                 System.out.println ( "nth node from last: " + nthNodeFromLast ( n ) );
             } else if (choice == 14) {
                 removeDuplicatesFromSortedLinkedList ( );
+            } else if (choice == 15) {
+                System.out.print ( "Enter data to be added in sorted linked list: " );
+                nodeData = scanner.nextInt ( );
+                insertNodeSortedLinkedList ( nodeData );
+            } else if (choice == 16) {
+                System.out.print ( "Enter key to be deleted: " );
+                key = scanner.nextInt ( );
+                deleteGivenKey ( key );
+            } else if (choice == 17) {
+                createLoopLinkedList ( );
+                System.out.println ( (detectLoop ( )) );
             }
         } while (choice != 100);
     }
