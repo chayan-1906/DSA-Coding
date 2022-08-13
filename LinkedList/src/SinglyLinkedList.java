@@ -307,53 +307,6 @@ public class SinglyLinkedList {
         // solved in leetcode editor, couldn't understand
     }
 
-    // choice 19  148. https://leetcode.com/problems/sort-list/
-    public static ListNode sortList(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode midNode = getMidNode ( head );
-        ListNode left = sortList ( head );
-        ListNode right = sortList ( midNode );
-        return mergeList ( left, right );
-    }
-
-    public static ListNode mergeList(ListNode listNode1, ListNode listNode2) {
-        ListNode current = new ListNode ( );
-        ListNode tail = current;
-        while (listNode1 != null && listNode2 != null) {
-            if (listNode1.data < listNode2.data) {
-                tail.next = listNode1;
-                listNode1 = listNode1.next;
-            } else {
-                tail.next = listNode2;
-                listNode2 = listNode2.next;
-            }
-            tail = tail.next;
-        }
-        tail.next = (listNode1 != null) ? listNode1 : listNode2;
-        return current.next;
-    }
-
-    public static ListNode getMidNode(ListNode head) {
-        /*ListNode midNode = head;
-        int length = 0;
-        while (midNode != null) {
-            length++;
-            midNode = midNode.next;
-        }
-        midNode = head;
-        for (int i = 0; i < length / 2; i++) {
-            midNode = midNode.next;
-        }*/
-        ListNode midPrev = null;
-        while (head != null && head.next != null) {
-            midPrev = (midPrev == null) ? head : midPrev.next;
-            head = head.next.next;
-        }
-        ListNode midNode = midPrev.next;
-        midPrev.next = null;
-        return midNode;
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner ( System.in );
         int length, nodeData, pos, key;
@@ -439,7 +392,7 @@ public class SinglyLinkedList {
             } else if (choice == 18) {
                 deleteMiddleNode ( );
             } else if (choice == 19) {
-                sortList ( head );
+
             }
         } while (choice != 100);
     }
