@@ -257,13 +257,20 @@ public class SinglyLinkedList {
     }
 
     // choice 17
-    public static Integer detectLoop() {
+    public static Integer detectLoop(int choice) {
         ListNode fastPtr = head;
         ListNode slowPtr = head;
         while (fastPtr != null && fastPtr.next != null) {
             fastPtr = fastPtr.next.next;
             slowPtr = slowPtr.next;
-            if (slowPtr == fastPtr) return slowPtr.data;
+            if (slowPtr == fastPtr) {
+                if (choice == 19) {
+                    Integer loopStartingValue = getStartingOfLoop ( slowPtr );
+                    System.out.println ( "Loop starts at " + loopStartingValue );
+                    return loopStartingValue;
+                }
+                return slowPtr.data;
+            }
         }
         return -1;
     }
@@ -282,8 +289,8 @@ public class SinglyLinkedList {
         thirdNode.next = fourthNode;
         fourthNode.next = fifthNode;
         fifthNode.next = sixthNode;
-//        sixthNode.next = thirdNode;
-        sixthNode.next = null;
+        sixthNode.next = thirdNode;
+//        sixthNode.next = null;
     }
 
     // choice 18  2095. https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
@@ -305,6 +312,15 @@ public class SinglyLinkedList {
     // 82. https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
     public static void removeDuplicateNodesFromSortedLinkedList() {
         // solved in leetcode editor, couldn't understand
+    }
+
+    public static Integer getStartingOfLoop(ListNode slowPtr) {
+        ListNode temp = head;
+        while (slowPtr != temp) {
+            slowPtr = slowPtr.next;
+            temp = temp.next;
+        }
+        return temp.data;
     }
 
     public static void main(String[] args) {
@@ -388,11 +404,12 @@ public class SinglyLinkedList {
                 deleteGivenKey ( key );
             } else if (choice == 17) {
                 createLoopLinkedList ( );
-                System.out.println ( (detectLoop ( )) );
+                System.out.println ( (detectLoop ( choice )) );
             } else if (choice == 18) {
                 deleteMiddleNode ( );
             } else if (choice == 19) {
-
+                createLoopLinkedList ( );
+                detectLoop ( choice );
             }
         } while (choice != 100);
     }
