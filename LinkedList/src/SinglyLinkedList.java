@@ -20,7 +20,7 @@ public class SinglyLinkedList {
     }
 
     // choice 1
-    public static void createSinglyLinkedList(int value) {
+    public static ListNode createSinglyLinkedList(int value) {
         ListNode newnode = new ListNode ( value );
         if (head == null) {
             // for first node
@@ -30,6 +30,7 @@ public class SinglyLinkedList {
             tail.next = newnode;
         }
         tail = newnode;
+        return head;
     }
 
     // choice 2
@@ -268,6 +269,8 @@ public class SinglyLinkedList {
                     Integer loopStartingValue = getStartingOfLoop ( slowPtr );
                     System.out.println ( "Loop starts at " + loopStartingValue );
                     return loopStartingValue;
+                } else if (choice == 20) {
+                    removeLoop ( slowPtr );
                 }
                 return slowPtr.data;
             }
@@ -314,6 +317,7 @@ public class SinglyLinkedList {
         // solved in leetcode editor, couldn't understand
     }
 
+    // choice 19
     public static Integer getStartingOfLoop(ListNode slowPtr) {
         ListNode temp = head;
         while (slowPtr != temp) {
@@ -321,6 +325,61 @@ public class SinglyLinkedList {
             temp = temp.next;
         }
         return temp.data;
+    }
+
+    // choice 20
+    public static void removeLoop(ListNode slowPtr) {
+        ListNode temp = head;
+        if (slowPtr != temp) {
+            slowPtr = slowPtr.next;
+            temp = temp.next;
+        }
+        slowPtr.next = null;
+        System.out.println ( "Loop removed" );
+    }
+
+    // choice 21  21. https://leetcode.com/problems/merge-two-sorted-lists/
+    public static ListNode mergeTwoSortedList(ListNode p, ListNode q) {
+        /*if (p == null) {
+            return q;
+        } else if (q == null) {
+            return p;
+        }
+        if (p.data < q.data) {
+            p.next = mergeTwoSortedList ( p.next, q );
+            return p;
+        } else {
+            q.next = mergeTwoSortedList ( p, q.next );
+            return q;
+        }*/
+        if (p == null) return q;
+        else if (q == null) return p;
+        if (p.data < q.data) {
+            p.next = mergeTwoSortedList ( p.next, q );
+            return p;
+        } else {
+            q.next = mergeTwoSortedList ( p, q.next );
+            return q;
+        }
+    }
+
+    // choice 22  2. https://leetcode.com/problems/add-two-numbers/
+    public static ListNode addTwoLists(ListNode list1, ListNode list2) {
+        ListNode head = new ListNode ( 0 );
+        ListNode currentNode = head;
+        int carry = 0;
+        while (list1 != null || list2 != null) {
+            int x = list1 != null ? list1.data : 0;
+            int y = list2 != null ? list2.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            currentNode.next = new ListNode ( sum % 10 );
+            currentNode = currentNode.next;
+            if (list1 != null) list1 = list1.next;
+            if (list2 != null) list2 = list2.next;
+        }
+        if (carry > 0) currentNode.next = new ListNode ( carry );
+        return head.next;
     }
 
     public static void main(String[] args) {
@@ -408,8 +467,17 @@ public class SinglyLinkedList {
             } else if (choice == 18) {
                 deleteMiddleNode ( );
             } else if (choice == 19) {
+                // get starting of loop
                 createLoopLinkedList ( );
                 detectLoop ( choice );
+            } else if (choice == 20) {
+                // remove loop
+                createLoopLinkedList ( );
+                detectLoop ( choice );
+            } else if (choice == 21) {
+                // mergeTwoSortedList code should work fine, LeetCode #21, not able to run in IntelliJ
+            } else if (choice == 21) {
+                // addTwoLists code should work fine, LeetCode #2, not able to run in IntelliJ
             }
         } while (choice != 100);
     }
