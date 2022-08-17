@@ -34,7 +34,7 @@ public class SinglyLinkedList {
     }
 
     // choice 2
-    public static void displayLinkedList(ListNode currentNode) {
+    public static void displaySinglyLinkedList(ListNode currentNode) {
         while (currentNode != null) {
             System.out.print ( currentNode.data + " --> " );
             currentNode = currentNode.next;
@@ -398,7 +398,7 @@ public class SinglyLinkedList {
                     createSinglyLinkedList ( nodeData );
                 }
             } else if (choice == 2) {
-                displayLinkedList ( head );
+                displaySinglyLinkedList ( head );
             } else if (choice == 3) {
                 System.out.println ( "Length: " + length ( ) );
             } else if (choice == 4) {
@@ -444,7 +444,7 @@ public class SinglyLinkedList {
                 }
             } else if (choice == 11) {
                 ListNode reversedList = reverseList ( head );
-                displayLinkedList ( reversedList );
+                displaySinglyLinkedList ( reversedList );
             } else if (choice == 12) {
                 System.out.println ( "Middle node of list: " + middleNode ( ).data );
             } else if (choice == 13) {
