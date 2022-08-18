@@ -28,6 +28,7 @@ public class CircularSinglyLinkedList {
         return length == 0;
     }
 
+    // choice 1
     public static void createCircularSinglyLinkedList(int data) {
         ListNode newnode = new ListNode ( data );
         if (head == null) {
@@ -39,6 +40,7 @@ public class CircularSinglyLinkedList {
         newnode.next = head;
     }
 
+    // choice 2
     public static void displayCircularSinglyLinkedList() {
         if (head == null) {
             System.out.println ( "List is empty" );
@@ -51,6 +53,11 @@ public class CircularSinglyLinkedList {
             currentNode = currentNode.next;
         } while (currentNode.next != head);
         System.out.println ( currentNode.data );
+    }
+
+    // choice 3
+    public static void insertNodeAtBeginning(int nodeData) {
+
     }
 
     public static void main(String[] args) {
@@ -70,6 +77,10 @@ public class CircularSinglyLinkedList {
                 }
             } else if (choice == 2) {
                 displayCircularSinglyLinkedList ( );
+            } else if (choice == 3) {
+                System.out.print ( "Enter data to be inserted at beginning: " );
+                nodeData = scanner.nextInt ( );
+                insertNodeAtBeginning ( nodeData );
             }
         } while (choice != 100);
     }
