@@ -57,13 +57,48 @@ public class CircularSinglyLinkedList {
 
     // choice 3
     public static void insertNodeAtBeginning(int nodeData) {
+        ListNode newnode = new ListNode ( nodeData );
+        if (head == null) {
+            head = tail = newnode;
+        } else {
+            newnode.next = head;
+            head = newnode;
+        }
+        tail.next = head;
+        length++;
+    }
 
+    // choice 4
+    public static void insertNodeAtEnd(int nodeData) {
+        ListNode newnode = new ListNode ( nodeData );
+        if (head == null) {
+            head = tail = newnode;
+        } else {
+            tail.next = newnode;
+            tail = newnode;
+        }
+        newnode.next = head;
+        length++;
+    }
+
+    // choice 5
+    public static void deleteNodeFromBeginning() {
+        if (head == null) {
+            System.out.println ( "Linked list is already empty" );
+            return;
+        } else if (head.next == head) {
+            head = tail = null;
+        } else {
+            tail.next = head.next;
+            head = head.next;
+        }
+        length--;
+        System.out.println ( "Successfully deleted" );
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner ( System.in );
-        int nodeData, pos, key;
-        int choice;
+        int nodeData, choice;
         do {
             System.out.print ( "Enter your choice: " );
             choice = scanner.nextInt ( );
@@ -81,6 +116,12 @@ public class CircularSinglyLinkedList {
                 System.out.print ( "Enter data to be inserted at beginning: " );
                 nodeData = scanner.nextInt ( );
                 insertNodeAtBeginning ( nodeData );
+            } else if (choice == 4) {
+                System.out.print ( "Enter data to be inserted at end: " );
+                nodeData = scanner.nextInt ( );
+                insertNodeAtEnd ( nodeData );
+            } else if (choice == 5) {
+                deleteNodeFromBeginning ( );
             }
         } while (choice != 100);
     }
