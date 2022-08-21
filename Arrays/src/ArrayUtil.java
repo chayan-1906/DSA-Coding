@@ -57,20 +57,56 @@ public class ArrayUtil {
             if (array[ i ] > maximum) {
                 secondMaximum = maximum;
                 maximum = array[ i ];
-            } else if (array[ i ] > secondMaximum && array[ i ] != maximum)
-                secondMaximum = array[ i ];
+            } else if (array[ i ] > secondMaximum && array[ i ] != maximum) secondMaximum = array[ i ];
         }
         return secondMaximum;
     }
     
     // choice 7
     public static void moveZeroesToEnd (int[] array) {
+        int j = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[ i ] != 0 && array[ j ] == 0) {
+                int temp = array[ i ];
+                array[ i ] = array[ j ];
+                array[ j ] = temp;
+            }
+            if (array[ j ] != 0) j++;
+        }
+    }
     
+    public static int findMaximumValue (int[] array) {
+        int max = array[ 0 ];
+        for (int i = 0; i < array.length; i++) {
+            if (array[ i ] > max) max = array[ i ];
+        }
+        return max;
     }
     
     // choice 8
-    public static void resizeArray (int[] array) {
+    public static int[] resizeArray (int[] array, int capacity) {
+        int[] newArray = new int[ capacity ];
+        for (int i = 0; i < array.length; i++)
+            newArray[ i ] = array[ i ];
+        array = newArray;
+        return array;
+    }
     
+    // choice 9
+    public static double findMissingNumber (int[] array) {
+        int min = findMinimumValue (array);
+        int max = findMaximumValue (array);
+        System.out.println ("min number: " + min);
+        double totalSum = (double) (array.length + 1) / 2 * (min + max);    // AP formula: sum = min or first term + (length - 1) * common difference
+        System.out.println ("Sum is: " + totalSum);
+        int presentSum = 0;
+        for (int i = 0; i < array.length; i++) presentSum += array[ i ];
+        return totalSum - presentSum;
+    }
+    
+    // choice 10
+    public static boolean checkPalindromeString (String string) {
+        return false;
     }
     
     public static void main (String[] args) {
@@ -107,8 +143,18 @@ public class ArrayUtil {
                 moveZeroesToEnd (array);
                 printArray (array);
             } else if (choice == 8) {
-                resizeArray(array);
+                System.out.print ("Enter capacity of new array: ");
+                int capacity = scanner.nextInt ();
+                int[] resizedArray = resizeArray (array, capacity);
                 printArray (array);
+                printArray (resizedArray);
+            } else if (choice == 9) {
+                double missingNumber = findMissingNumber (array);
+                System.out.println ("Missing number is: " + missingNumber);
+            } else if (choice == 10) {
+                System.out.print ("Enter a string to check palindrome string: ");
+                String string = scanner.next ();
+                System.out.println ("String is palindrome " + checkPalindromeString (string));
             }
         } while (choice != 100);
     }
