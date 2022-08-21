@@ -33,6 +33,44 @@ public class ArrayUtil {
     
     // choice 4
     public static void reverseArray (int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int left = array[ i ];
+            array[ i ] = array[ array.length - 1 - i ];
+            array[ array.length - 1 - i ] = left;
+        }
+    }
+    
+    // choice 5
+    public static int findMinimumValue (int[] array) {
+        int min = array[ 0 ];
+        for (int i = 0; i < array.length; i++) {
+            if (array[ i ] < min) min = array[ i ];
+        }
+        return min;
+    }
+    
+    // choice 6
+    public static int findSecondMaximumValue (int[] array) {
+        int maximum = array[ array.length - 1 ];
+        int secondMaximum = array[ array.length - 2 ];
+        for (int i = 0; i < array.length; i++) {
+            if (array[ i ] > maximum) {
+                secondMaximum = maximum;
+                maximum = array[ i ];
+            } else if (array[ i ] > secondMaximum && array[ i ] != maximum)
+                secondMaximum = array[ i ];
+        }
+        return secondMaximum;
+    }
+    
+    // choice 7
+    public static void moveZeroesToEnd (int[] array) {
+    
+    }
+    
+    // choice 8
+    public static void resizeArray (int[] array) {
+    
     }
     
     public static void main (String[] args) {
@@ -58,6 +96,18 @@ public class ArrayUtil {
                 printArray (resultArray);
             } else if (choice == 4) {
                 reverseArray (array);
+                printArray (array);
+            } else if (choice == 5) {
+                int minimumValue = findMinimumValue (array);
+                System.out.println ("Minimum value of the array: " + minimumValue);
+            } else if (choice == 6) {
+                int secondMaximumValue = findSecondMaximumValue (array);
+                System.out.println ("Second maximum value of the array: " + secondMaximumValue);
+            } else if (choice == 7) {
+                moveZeroesToEnd (array);
+                printArray (array);
+            } else if (choice == 8) {
+                resizeArray(array);
                 printArray (array);
             }
         } while (choice != 100);
