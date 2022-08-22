@@ -106,7 +106,10 @@ public class ArrayUtil {
     
     // choice 10
     public static boolean checkPalindromeString (String string) {
-        return false;
+        for (int i = 0; i < string.length () / 2; i++) {
+            if (string.charAt (i) != string.charAt (string.length () - 1 - i)) return false;
+        }
+        return true;
     }
     
     public static void main (String[] args) {
@@ -154,7 +157,7 @@ public class ArrayUtil {
             } else if (choice == 10) {
                 System.out.print ("Enter a string to check palindrome string: ");
                 String string = scanner.next ();
-                System.out.println ("String is palindrome " + checkPalindromeString (string));
+                System.out.println (string + " is palindrome " + checkPalindromeString (string));
             }
         } while (choice != 100);
     }

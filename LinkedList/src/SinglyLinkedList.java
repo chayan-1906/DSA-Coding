@@ -380,23 +380,23 @@ public class SinglyLinkedList {
         // TODO
         return - 1;
     }
-    
+
     // choice 25. https://www.sanfoundry.com/c-program-check-2-lists-same/
     public static boolean isTwoListSame () {
         // TODO
         return false;
     }
-    
+
     // choice 26. https://www.sanfoundry.com/c-program-linked-list-reverse-using-recursion/
     public static void reverseWithRecursion () {
         // TODO
     }
-    
+
     // choice 27. https://www.sanfoundry.com/c-program-alternate-nodes-without-recursion/
     public static void displayAlternateNode () {
         // TODO
     }
-    
+
     public static void main (String[] args) {
         Scanner scanner = new Scanner (System.in);
         int length, nodeData, pos, key, choice;
