@@ -1,2 +1,10 @@
 .idea
-LinkedList/out/
+misc.xml
+.DS_Store
+Basics Time Complexity/out
+LinkedList/out
+Arrays/out
+Basics Time Complexity/out/production
+LinkedList/out/production
+Arrays/out/production
+Arrays/Arrays.iml
