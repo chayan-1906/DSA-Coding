@@ -2,92 +2,141 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class BinaryTree {
-
+    
     private static TreeNode root;
-
-    public static void main(String[] args) {
+    
+    public static void main (String[] args) {
         int choice;
-        Scanner scanner = new Scanner ( System.in );
+        Scanner scanner = new Scanner (System.in);
         do {
-            System.out.print ( "Enter your choice: " );
-            choice = scanner.nextInt ( );
+            System.out.print ("Enter your choice: ");
+            choice = scanner.nextInt ();
             if (choice == 1) {
-                createBinaryTree ( );
+                createBinaryTree ();
             } else if (choice == 2) {
-                preorderTraversal ( root );
-                System.out.println ( );
+                preorderTraversal (root);
+                System.out.println ();
             } else if (choice == 3) {
-                iterativePreorder ( root );
-                System.out.println ( );
+                iterativePreorder (root);
+                System.out.println ();
             } else if (choice == 4) {
-                inorderTraversal ( root );
-                System.out.println ( );
+                inorderTraversal (root);
+                System.out.println ();
             } else if (choice == 5) {
-                postorderTraversal ( root );
-                System.out.println ( );
+                iterativeInorder (root);
+                System.out.println ();
+            } else if (choice == 6) {
+                postorderTraversal (root);
+                System.out.println ();
+            } else if (choice == 7) {
+                iterativePostorder (root);
+                System.out.println ();
             }
         } while (choice != 100);
     }
-
+    
     /// choice 1
-    private static void createBinaryTree() {
-        TreeNode first = new TreeNode ( 9 );
-        TreeNode second = new TreeNode ( 2 );
-        TreeNode third = new TreeNode ( 3 );
-        TreeNode fourth = new TreeNode ( 4 );
+    private static void createBinaryTree () {
+        TreeNode first = new TreeNode (9);
+        TreeNode second = new TreeNode (2);
+        TreeNode third = new TreeNode (3);
+        TreeNode fourth = new TreeNode (4);
 //        TreeNode fifth = new TreeNode ( 5 );
-
+        
         root = first;
-
+        
         first.left = second;
         first.right = third;
-
+        
         second.left = fourth;
 //        second.right = fifth;
     }
-
+    
     /// choice 2
-    private static void preorderTraversal(TreeNode root) {
+    private static void preorderTraversal (TreeNode root) {
         if (root == null) return;
-        System.out.print ( root.data + " " );
-        preorderTraversal ( root.left );
-        preorderTraversal ( root.right );
+        System.out.print (root.data + " ");
+        preorderTraversal (root.left);
+        preorderTraversal (root.right);
     }
-
+    
     /// choice 3
-    private static void iterativePreorder(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<> ( );
-        stack.push ( root );
-        while (!stack.isEmpty ( )) {
-            TreeNode temp = stack.pop ( );
-            System.out.print ( temp.data + " " );
-            if (temp.right != null) stack.push ( temp.right );
-            if (temp.left != null) stack.push ( temp.left );
+    private static void iterativePreorder (TreeNode root) {
+        if (root == null) return;
+        Stack<TreeNode> stack = new Stack<> ();
+        stack.push (root);
+        while (! stack.isEmpty ()) {
+            TreeNode temp = stack.pop ();
+            System.out.print (temp.data + " ");
+            if (temp.right != null) stack.push (temp.right);
+            if (temp.left != null) stack.push (temp.left);
         }
     }
-
+    
     /// choice 4
-    private static void inorderTraversal(TreeNode root) {
+    private static void inorderTraversal (TreeNode root) {
         if (root == null) return;
-        inorderTraversal ( root.left );
-        System.out.print ( root.data );
-        inorderTraversal ( root.right );
+        inorderTraversal (root.left);
+        System.out.print (root.data + " ");
+        inorderTraversal (root.right);
     }
-
+    
     /// choice 5
-    private static void postorderTraversal(TreeNode root) {
+    private static void iterativeInorder (TreeNode root) {
         if (root == null) return;
-        postorderTraversal ( root.left );
-        postorderTraversal ( root.right );
-        System.out.print ( root.data );
+        Stack<TreeNode> stack = new Stack<> ();
+        TreeNode temp = root;
+        while (! stack.isEmpty () || temp != null) {
+            if (temp != null) {
+                stack.push (temp);
+                temp = temp.left;
+            } else {
+                temp = stack.pop ();
+                System.out.print (temp.data + " ");
+                temp = temp.right;
+            }
+        }
     }
-
+    
+    /// choice 6
+    private static void postorderTraversal (TreeNode root) {
+        if (root == null) return;
+        postorderTraversal (root.left);
+        postorderTraversal (root.right);
+        System.out.print (root.data + " ");
+    }
+    
+    /// choice 7
+    // couldn't understand logic
+    private static void iterativePostorder (TreeNode root) {
+        TreeNode current = root;
+        Stack<TreeNode> stack = new Stack<> ();
+        while (current != null || ! stack.isEmpty ()) {
+            if (current != null) {
+                stack.push (current);
+                current = current.left;
+            } else {
+                TreeNode temp = stack.peek ().right;
+                if (temp == null) {
+                    temp = stack.pop ();
+                    System.out.print (temp.data + " ");
+                    while (! stack.isEmpty () && temp == stack.peek ().right) {
+                        temp = stack.pop ();
+                        System.out.print (temp.data + " ");
+                    }
+                } else {
+                    current = temp;
+                }
+            }
+        }
+    }
+    
     private static class TreeNode {
         private TreeNode left;
         private TreeNode right;
         private int data;
-
-        public TreeNode(int data) {
+        
+        public TreeNode (int data) {
             this.data = data;
         }
     }
