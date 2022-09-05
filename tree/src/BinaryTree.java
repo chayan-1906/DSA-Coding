@@ -31,6 +31,11 @@ public class BinaryTree {
             } else if (choice == 7) {
                 iterativePostorder (root);
                 System.out.println ();
+            } else if (choice == 8) {
+                levelOrderTraversal (root);
+                System.out.println ();
+            } else if (choice == 9) {
+                System.out.println ("Height of Tree: " + height (root));
             }
         } while (choice != 100);
     }
@@ -129,6 +134,33 @@ public class BinaryTree {
                 }
             }
         }
+    }
+    
+    /// choice 8
+    private static void levelOrderTraversal (TreeNode root) {
+        for (int level = 0; level <= height (root); level++) printCurrentLevel (root, level);
+    }
+    
+    /// choice 9
+    private static int height (TreeNode root) {
+        if (root == null) return 0;
+        int leftHeight = height (root.left);
+        int rightHeight = height (root.right);
+        if (leftHeight > rightHeight) return leftHeight + 1;
+        else return rightHeight + 1;
+    }
+    
+    private static void printCurrentLevel (TreeNode root, int level) {
+        if (root == null) return;
+        if (level == 1) System.out.print (root.data + " ");
+        else if (level > 1) {
+            printCurrentLevel (root.left, level - 1);
+            printCurrentLevel (root.right, level - 1);
+        }
+    }
+    
+    private static int maximumElement (TreeNode root) {
+        return 0;
     }
     
     private static class TreeNode {
